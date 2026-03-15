@@ -1,4 +1,4 @@
-package com.svetanis.agents.adk.tutor;
+package com.svetanis.agents.adk;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

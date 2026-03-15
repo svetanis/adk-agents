@@ -1,15 +1,15 @@
-package com.svetanis.agents.adk.tutor;
+package com.svetanis.agents.adk;
 
 import javax.inject.Provider;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.GoogleSearchTool;
 
-public class LlmAgentProvider implements Provider<LlmAgent> {
+public class SearchAgentProvider implements Provider<LlmAgent> {
 
 	private final String path;
 
-	public LlmAgentProvider(String path) {
+	public SearchAgentProvider(String path) {
 		this.path = path;
 	}
 

@@ -8,7 +8,7 @@ import com.google.adk.web.AdkWebServer;
 public class TutorApp {
 
 	public static void main(String[] agrs) {
-		LlmAgent root = new RootTutorAgent().get();
+		LlmAgent root = new TutorAgent().get();
 		AdkWebServer.start(root);
 	}
 }
