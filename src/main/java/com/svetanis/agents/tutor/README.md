@@ -14,7 +14,7 @@ The Tutor Agent Module is an AI-powered educational system that provides persona
 #### 1. **TutorApp** - Entry Point
 - Main application class that initializes and starts the tutor system
 - Starts a web server hosting the root tutor agent
-- **Command to run:** `mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.tutor.TutorApp`
+- **Command to run:** `mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.tutor.TutorApp`
 
 #### 2. **TutorAgent** - Root Tutor Coordinator
 - Orchestrates the entire tutoring system
@@ -227,7 +227,7 @@ Java Components:
 ## File Structure
 
 ```
-src/main/java/com/svetanis/agents/adk/tutor/
+src/main/java/com/svetanis/agents/tutor/
 ├── TutorApp.java              - Application entry point
 ├── TutorAgent.java            - Root tutor coordinator
 └── README.md                  - This documentation
@@ -252,7 +252,7 @@ src/main/resources/tutor/
 To run the tutor application:
 
 ```bash
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.tutor.TutorApp
+mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.tutor.TutorApp
 ```
 
 Then interact with any of the following types of questions:

@@ -13,7 +13,7 @@ The Blogger Module is an AI-powered agent system that generates daily executive 
 #### 1. **BloggerApp** - Entry Point
 - Main application class that initializes and starts the blogger system
 - Starts a web server hosting the root agent
-- **Command to run:** `mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.blogger.BloggerApp`
+- **Command to run:** `mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.blogger.BloggerApp`
 - **Default prompt:** "Run the daily executive briefing on Tech, Health, and Finance"
 
 #### 2. **BloggerRootAgent** - Root Agent
@@ -283,7 +283,7 @@ src/main/resources/blogger/
 To run the blogger application and request an executive briefing:
 
 ```bash
-mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.blogger.BloggerApp
+mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.blogger.BloggerApp
 ```
 
 Then prompt the web server with:

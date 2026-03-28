@@ -1,9 +1,9 @@
-package com.svetanis.agents.adk.tutor;
+package com.svetanis.agents.tutor;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.tutor.TutorApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.tutor.TutorApp
 
 public class TutorApp {
 

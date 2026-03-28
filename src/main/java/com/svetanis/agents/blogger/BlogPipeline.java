@@ -1,4 +1,4 @@
-package com.svetanis.agents.adk.blogger;
+package com.svetanis.agents.blogger;
 
 import static com.google.common.collect.ImmutableList.copyOf;
 

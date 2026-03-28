@@ -1,4 +1,4 @@
-package com.svetanis.agents.adk.blogger;
+package com.svetanis.agents.blogger;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
@@ -6,7 +6,7 @@ import static java.lang.System.getProperty;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.adk.blogger.BloggerApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.blogger.BloggerApp
 
 // PROMPT: Run the daily executive briefing on Tech, Health, and Finance
 
