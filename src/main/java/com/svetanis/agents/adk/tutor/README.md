@@ -1,5 +1,8 @@
 # Tutor Agent Module
 
+> **Inspired by:** [Google's 5 Days of AI Course](https://www.kaggle.com/learn-guide/5-day-agents) - Multi-agent orchestration patterns adapted to Java + Google ADK
+
+
 ## Overview
 
 The Tutor Agent Module is an AI-powered educational system that provides personalized tutoring across multiple domains: Code, Math, and Science. It leverages a delegating root agent that routes student questions to specialized tutors, each with unique pedagogical approaches designed to guide students toward learning rather than just providing answers.
