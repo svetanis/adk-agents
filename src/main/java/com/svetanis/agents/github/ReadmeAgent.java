@@ -1,0 +1,39 @@
+package com.svetanis.agents.github;
+
+import javax.inject.Provider;
+
+import com.google.adk.agents.LlmAgent;
+import com.google.adk.tools.mcp.McpToolset;
+import com.google.adk.tools.mcp.StreamableHttpServerParameters;
+import com.svetanis.agents.adk.AgentConfig;
+import com.svetanis.agents.adk.AgentConfigProvider;
+import com.svetanis.agents.adk.AgentContext;
+import com.svetanis.agents.adk.LlmAgentProvider;
+
+// https://adk.dev/integrations/github/
+// https://docs.github.com/en/copilot/tutorials/customization-library/prompt-files/create-readme
+// https://docs.github.com/en/copilot/tutorials/customization-library/custom-agents/your-first-custom-agent
+
+public class ReadmeAgent implements Provider<LlmAgent> {
+
+	private static final String README = "github/readme-agent";
+
+	@Override
+	public LlmAgent get() {
+		StreamableHttpServerParameters params = new ServerParamsProvider().get();
+		try (McpToolset mcp = new McpToolset(params)) {
+			AgentContext ctx = ctx(mcp);
+			return new LlmAgentProvider(ctx).get();
+		}
+	}
+
+	private AgentContext ctx(McpToolset mcp) {
+		// TODO: add Tool predicate
+		AgentConfig config = new AgentConfigProvider(README).get();
+		return AgentContext//
+				.builder()//
+				.withConfig(config)//
+				.withTools(mcp.getTools(null).toList().blockingGet())//
+				.build();
+	}
+}

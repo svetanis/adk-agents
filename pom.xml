@@ -47,6 +47,11 @@
     		<version>${jackson.version}</version> 
 		</dependency>
 		<dependency>
+    		<groupId>com.github</groupId>
+    		<artifactId>copilot-sdk-java</artifactId>
+    		<version>0.2.1-java.1</version>
+		</dependency>   
+		<dependency>
     		<groupId>com.yahoofinance-api</groupId>
     		<artifactId>YahooFinanceAPI</artifactId>
     		<version>3.17.0</version>
