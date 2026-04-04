@@ -1,4 +1,4 @@
-package com.svetanis.agents.github;
+package com.svetanis.agents.devtools;
 
 import static com.google.common.collect.ImmutableMap.copyOf;
 import static java.lang.String.format;

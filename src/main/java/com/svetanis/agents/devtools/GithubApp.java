@@ -1,9 +1,9 @@
-package com.svetanis.agents.github;
+package com.svetanis.agents.devtools;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.github.GithubApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.devtools.GithubApp
 
 // Suggested PROMPTs: 
 // Please review and improve README.md file for {repository}.

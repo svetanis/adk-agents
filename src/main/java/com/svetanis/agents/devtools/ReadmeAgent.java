@@ -1,4 +1,4 @@
-package com.svetanis.agents.github;
+package com.svetanis.agents.devtools;
 
 import javax.inject.Provider;
 
@@ -16,7 +16,7 @@ import com.svetanis.agents.adk.LlmAgentProvider;
 
 public class ReadmeAgent implements Provider<LlmAgent> {
 
-	private static final String README = "github/readme-agent";
+	private static final String README = "devtools/readme-agent";
 
 	@Override
 	public LlmAgent get() {

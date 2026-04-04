@@ -109,7 +109,7 @@ Example: Set your Google API key (replace with your actual key)
 export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 
 Run the GitHub Application
-mvn exec:java -Dexec.mainClass="com.svetanis.agents.github.GithubApp"
+mvn exec:java -Dexec.mainClass="com.svetanis.agents.devtools.GithubApp"
 
 
 #### Tutor Agent
@@ -142,12 +142,3 @@ For assistance with `adk-agents`, consider the following resources:
 
 *   **svetanis** ([@svetanis](https://github.com/svetanis))
 
-### Contributing
-
-We welcome contributions to the `adk-agents` project! If you're interested in contributing, please consider:
-
-*   Forking the repository.
-*   Creating a new branch for your features or bug fixes.
-*   Submitting a pull request with a clear description of your changes.
-
-For more detailed contribution guidelines, please refer to a future `CONTRIBUTING.md` file.
