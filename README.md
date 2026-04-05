@@ -50,18 +50,16 @@ To get started with the `adk-agents` project, follow these steps:
 ### Installation
 
 1.  **Clone the repository**:
-    ```
-bash
+```bash
 git clone https://github.com/svetanis/adk-agents.git
 cd adk-agents
-
+```
 
 2.  **Build the project**:
     Navigate to the project root directory and build the project using Maven:
-    ```
-bash
+```bash
 mvn clean install
-
+```
     This command compiles the Java code, runs tests, and packages the agents.
 
 ### Usage Examples
