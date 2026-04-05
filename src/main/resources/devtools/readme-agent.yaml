@@ -46,3 +46,4 @@ instruction: |
 
  Analyze the project structure, dependencies, and code to make the README 
  accurate, helpful, and focused on getting users productive quickly.
+outputKey: content

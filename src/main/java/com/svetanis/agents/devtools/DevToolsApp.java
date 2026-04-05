@@ -1,18 +1,18 @@
 package com.svetanis.agents.devtools;
 
-import com.google.adk.agents.LlmAgent;
+import com.google.adk.agents.SequentialAgent;
 import com.google.adk.web.AdkWebServer;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.devtools.GithubApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.devtools.DevToolsApp
 
 // Suggested PROMPTs: 
-// Please review and improve README.md file for {repository}.
+// Please review and improve README.md file for {repository} and write it to a file in default location.
 
-public class GithubApp {
+public class DevToolsApp {
 
 	public static void main(String[] args) throws Exception {
-		LlmAgent rma = new ReadmeAgent().get();
+		SequentialAgent agent = new PipelineAgent().get();
 		// Run your agent with the ADK Dev UI
-		AdkWebServer.start(rma);
+		AdkWebServer.start(agent);
 	}
 }
