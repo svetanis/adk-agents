@@ -1,6 +1,6 @@
 package com.svetanis.agents.devtools;
 
-import com.google.adk.agents.SequentialAgent;
+import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.devtools.DevToolsApp
@@ -11,7 +11,7 @@ import com.google.adk.web.AdkWebServer;
 public class DevToolsApp {
 
 	public static void main(String[] args) throws Exception {
-		SequentialAgent agent = new PipelineAgent().get();
+		LlmAgent agent = new DevToolsAgent().get();
 		// Run your agent with the ADK Dev UI
 		AdkWebServer.start(agent);
 	}
