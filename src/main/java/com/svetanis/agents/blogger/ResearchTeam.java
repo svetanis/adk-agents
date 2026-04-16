@@ -11,7 +11,7 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.ParallelAgent;
 import com.google.adk.tools.GoogleSearchTool;
 import com.google.common.collect.ImmutableList;
-import com.svetanis.agents.adk.LlmAgentProvider;
+import com.svetanis.agents.LlmAgentProvider;
 
 public class ResearchTeam implements Provider<ParallelAgent> {
 

@@ -1,4 +1,4 @@
-package com.svetanis.agents.adk;
+package com.svetanis.agents;
 
 import javax.inject.Provider;
 

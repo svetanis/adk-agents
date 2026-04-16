@@ -5,10 +5,10 @@ import javax.inject.Provider;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.mcp.McpToolset;
 import com.google.adk.tools.mcp.StreamableHttpServerParameters;
-import com.svetanis.agents.adk.AgentConfig;
-import com.svetanis.agents.adk.AgentConfigProvider;
-import com.svetanis.agents.adk.AgentContext;
-import com.svetanis.agents.adk.LlmAgentProvider;
+import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConfigProvider;
+import com.svetanis.agents.AgentContext;
+import com.svetanis.agents.LlmAgentProvider;
 
 // https://adk.dev/integrations/github/
 // https://docs.github.com/en/copilot/tutorials/customization-library/prompt-files/create-readme

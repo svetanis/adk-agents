@@ -5,8 +5,8 @@ import javax.inject.Provider;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.LoopAgent;
 import com.google.adk.tools.ExitLoopTool;
-import com.svetanis.agents.adk.AgentContext;
-import com.svetanis.agents.adk.LlmAgentProvider;
+import com.svetanis.agents.AgentContext;
+import com.svetanis.agents.LlmAgentProvider;
 
 public class BlogRefinementLoop implements Provider<LoopAgent> {
 

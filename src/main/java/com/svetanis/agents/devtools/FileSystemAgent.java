@@ -17,10 +17,10 @@ import com.google.adk.tools.FunctionTool;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.io.ByteSource;
-import com.svetanis.agents.adk.AgentConfig;
-import com.svetanis.agents.adk.AgentConfigProvider;
-import com.svetanis.agents.adk.AgentContext;
-import com.svetanis.agents.adk.LlmAgentProvider;
+import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConfigProvider;
+import com.svetanis.agents.AgentContext;
+import com.svetanis.agents.LlmAgentProvider;
 import com.svetanis.base.Files;
 import com.svetanis.base.Strings;
 

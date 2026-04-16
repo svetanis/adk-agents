@@ -1,4 +1,4 @@
-package com.svetanis.agents.adk;
+package com.svetanis.agents;
 
 import static com.google.common.collect.ImmutableList.copyOf;
 

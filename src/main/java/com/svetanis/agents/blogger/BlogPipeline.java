@@ -10,7 +10,7 @@ import javax.inject.Provider;
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.common.collect.ImmutableList;
-import com.svetanis.agents.adk.LlmAgentProvider;
+import com.svetanis.agents.LlmAgentProvider;
 
 public class BlogPipeline implements Provider<SequentialAgent> {
 

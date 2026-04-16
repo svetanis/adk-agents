@@ -13,10 +13,10 @@ import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
 import com.google.adk.tools.GoogleSearchTool;
 import com.google.common.collect.ImmutableList;
-import com.svetanis.agents.adk.AgentConfig;
-import com.svetanis.agents.adk.AgentConfigProvider;
-import com.svetanis.agents.adk.AgentContext;
-import com.svetanis.agents.adk.LlmAgentProvider;
+import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConfigProvider;
+import com.svetanis.agents.AgentContext;
+import com.svetanis.agents.LlmAgentProvider;
 
 public class TutorAgent implements Provider<LlmAgent> {
 
