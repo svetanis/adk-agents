@@ -13,16 +13,14 @@ import com.svetanis.agents.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class BloggerRootAgent implements Provider<LlmAgent> {
+public class RootAgent implements Provider<LlmAgent> {
 
   private static final String BRA_KEY = "blogger.root.agent";
 
-  public BloggerRootAgent(boolean refine, Provider<ImmutableMap<String, AgentConf>> provider) {
-    this.refine = refine;
+  public RootAgent(Provider<ImmutableMap<String, AgentConf>> provider) {
     this.provider = checkNotNull(provider, "provider");
   }
 
-  private final boolean refine;
   private final Provider<ImmutableMap<String, AgentConf>> provider;
 
   @Override
@@ -34,7 +32,7 @@ public class BloggerRootAgent implements Provider<LlmAgent> {
 
   private AgentContext agentCtx(String key, Map<String, AgentConf> configs) {
     AgentConf config = configs.get(key);
-    AgentTool pipeline = AgentTool.create(new BlogPipeline(refine, configs).get());
+    AgentTool pipeline = AgentTool.create(new BlogCreationPipeline(configs).get());
     return AgentContext.build(config, pipeline);
   }
 }

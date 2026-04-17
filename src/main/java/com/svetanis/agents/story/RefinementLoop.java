@@ -20,9 +20,7 @@ public class RefinementLoop implements Provider<LoopAgent> {
   private static final String SRA_KEY = "story.refiner.agent";
 
   private static final String DESC = """
-      LoopAgent contains the agents that
-      will run repeatedly:
-      Critic -> Refiner
+      Improves essay based on critique or signals completion.
       """;
 
   public RefinementLoop(Map<String, AgentConf> configs) {
