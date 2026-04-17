@@ -1,54 +1,62 @@
 package com.svetanis.agents.tutor;
 
+import static com.google.api.client.util.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.copyOf;
+import static com.google.common.collect.Lists.transform;
+import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javax.inject.Provider;
+import java.util.Map;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
-import com.google.adk.tools.GoogleSearchTool;
 import com.google.common.collect.ImmutableList;
-import com.svetanis.agents.AgentConfig;
-import com.svetanis.agents.AgentConfigProvider;
+import com.google.common.collect.ImmutableMap;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
+import com.svetanis.agents.SearchAgentToolProvider;
+
+import jakarta.inject.Provider;
 
 public class TutorAgent implements Provider<LlmAgent> {
 
-	private static final String ROOT = "tutor/root_tutor_agent";
-	private static final String CODE = "tutor/code_tutor_agent";
-	private static final String MATH = "tutor/math_tutor_agent";
-	private static final String SCIENCE = "tutor/science_tutor_agent";
+  private static final String ROOT_KEY = "tutor.root.agent";
+  private static final String CODE_KEY = "tutor.code.agent";
+  private static final String MATH_KEY = "tutor.math.agent";
+  private static final String SCNC_KEY = "tutor.science.agent";
 
-	@Override
-	public LlmAgent get() {
-		GoogleSearchTool gst = new GoogleSearchTool();
-		AgentContext ctx = ctx(ROOT, tools(gst));
-		return new LlmAgentProvider(ctx).get();
-	}
+  public TutorAgent(Provider<ImmutableMap<String, AgentConf>> provider) {
+    this.provider = checkNotNull(provider, "provider");
+  }
 
-	private ImmutableList<BaseTool> tools(GoogleSearchTool gst) {
-		List<BaseTool> list = new ArrayList<>();
-		list.add(AgentTool.create(new LlmAgentProvider(ctx(CODE, gst)).get()));
-		list.add(AgentTool.create(new LlmAgentProvider(ctx(MATH, gst)).get()));
-		list.add(AgentTool.create(new LlmAgentProvider(ctx(SCIENCE, gst)).get()));
-		return copyOf(list);
-	}
+  private final Provider<ImmutableMap<String, AgentConf>> provider;
 
-	private AgentContext ctx(String fragment, BaseTool... tools) {
-		return ctx(fragment, Arrays.asList(tools));
-	}
+  @Override
+  public LlmAgent get() {
+    Map<String, AgentConf> configs = provider.get();
+    List<BaseTool> tools = tools(configs);
+    AgentContext ctx = agentCtx(configs.get(ROOT_KEY), tools);
+    return new LlmAgentProvider(ctx).get();
+  }
 
-	private AgentContext ctx(String fragment, List<BaseTool> tools) {
-		AgentConfig config = new AgentConfigProvider(fragment).get();
-		return AgentContext.builder()//
-				.withConfig(config)//
-				.withTools(tools)//
-				.build();//
-	}
+  private ImmutableList<BaseTool> tools(Map<String, AgentConf> configs) {
+    List<String> keys = asList(CODE_KEY, MATH_KEY, SCNC_KEY);
+    AgentTool sat = new SearchAgentToolProvider(configs).get();
+    return copyOf(transform(keys, k -> agentTool(configs.get(k), sat)));
+  }
+
+  private AgentTool agentTool(AgentConf config, BaseTool tool) {
+    AgentContext ctx = agentCtx(config, asList(tool));
+    LlmAgent agent = new LlmAgentProvider(ctx).get();
+    return AgentTool.create(agent);
+  }
+
+  private AgentContext agentCtx(AgentConf config, List<BaseTool> tools) {
+    return AgentContext.builder() //
+        .withConfig(config) //
+        .withTools(tools) //
+        .build(); //
+  }
 }

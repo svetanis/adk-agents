@@ -6,7 +6,7 @@ import javax.inject.Provider;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
-import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentConfigProvider;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
@@ -23,7 +23,7 @@ public class CustomerSupportAgent implements Provider<LlmAgent> {
 
   private AgentContext ctx() {
     BaseAgent pca = new RemoteProductCatalogAgent().get();
-    AgentConfig config = new AgentConfigProvider(CUSTOMER_SUPPORT).get();
+    AgentConf config = new AgentConfigProvider(CUSTOMER_SUPPORT).get();
     return AgentContext//
         .builder()//
         .withConfig(config)//

@@ -11,7 +11,7 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
 import com.google.common.collect.ImmutableList;
-import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentConfigProvider;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
@@ -35,7 +35,7 @@ public class DevToolsAgent implements Provider<LlmAgent> {
 	}
 
 	private AgentContext ctx(String fragment, List<BaseTool> tools) {
-		AgentConfig config = new AgentConfigProvider(fragment).get();
+		AgentConf config = new AgentConfigProvider(fragment).get();
 		return AgentContext.builder()//
 				.withConfig(config)//
 				.withTools(tools)//

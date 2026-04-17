@@ -1,36 +1,40 @@
 package com.svetanis.agents.blogger;
 
-import javax.inject.Provider;
+import static com.google.api.client.util.Preconditions.checkNotNull;
+
+import java.util.Map;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
-import com.svetanis.agents.AgentConfig;
-import com.svetanis.agents.AgentConfigProvider;
+import com.google.common.collect.ImmutableMap;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
 
+import jakarta.inject.Provider;
+
 public class BloggerRootAgent implements Provider<LlmAgent> {
 
-	private static final String BRA = "blogger/root-agent";
+  private static final String BRA_KEY = "blogger.root.agent";
 
-	private final boolean refine;
+  public BloggerRootAgent(boolean refine, Provider<ImmutableMap<String, AgentConf>> provider) {
+    this.refine = refine;
+    this.provider = checkNotNull(provider, "provider");
+  }
 
-	public BloggerRootAgent(boolean refine) {
-		this.refine = refine;
-	}
+  private final boolean refine;
+  private final Provider<ImmutableMap<String, AgentConf>> provider;
 
-	@Override
-	public LlmAgent get() {
-		AgentContext ctx = ctx(BRA);
-		return new LlmAgentProvider(ctx).get();
-	}
+  @Override
+  public LlmAgent get() {
+    Map<String, AgentConf> configs = provider.get();
+    AgentContext ctx = agentCtx(BRA_KEY, configs);
+    return new LlmAgentProvider(ctx).get();
+  }
 
-	private AgentContext ctx(String fragment) {
-		AgentConfig config = new AgentConfigProvider(fragment).get();
-		AgentTool pipeline = AgentTool.create(new BlogPipeline(refine).get());
-		return AgentContext.builder()//
-				.withConfig(config)//
-				.withTools(pipeline)//
-				.build();
-	}
+  private AgentContext agentCtx(String key, Map<String, AgentConf> configs) {
+    AgentConf config = configs.get(key);
+    AgentTool pipeline = AgentTool.create(new BlogPipeline(refine, configs).get());
+    return AgentContext.build(config, pipeline);
+  }
 }

@@ -1,4 +1,4 @@
-name: google_search_agent
+name: GoogleSearchAgent
 model: gemini-2.5-flash
 description: An agent that searches on Google Search
 instruction: |

@@ -1,4 +1,4 @@
-name: science_tutor_agent
+name: ScienceTutorAgent
 model: gemini-2.5-flash
 description: A friendly Science Tutor
 instruction: |

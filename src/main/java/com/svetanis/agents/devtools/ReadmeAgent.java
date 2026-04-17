@@ -5,7 +5,7 @@ import javax.inject.Provider;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.mcp.McpToolset;
 import com.google.adk.tools.mcp.StreamableHttpServerParameters;
-import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentConfigProvider;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
@@ -29,7 +29,7 @@ public class ReadmeAgent implements Provider<LlmAgent> {
 
 	private AgentContext ctx(McpToolset mcp) {
 		// TODO: add Tool predicate
-		AgentConfig config = new AgentConfigProvider(README).get();
+		AgentConf config = new AgentConfigProvider(README).get();
 		return AgentContext//
 				.builder()//
 				.withConfig(config)//

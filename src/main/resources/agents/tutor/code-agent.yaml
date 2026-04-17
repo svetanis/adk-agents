@@ -1,4 +1,4 @@
-name: code_tutor_agent
+name: CodeTutorAgent
 model: gemini-2.5-flash
 description: A friendly  Code Tutor
 instruction: |

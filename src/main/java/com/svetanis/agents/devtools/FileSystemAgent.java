@@ -17,7 +17,7 @@ import com.google.adk.tools.FunctionTool;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.io.ByteSource;
-import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentConfigProvider;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
@@ -39,7 +39,7 @@ public class FileSystemAgent implements Provider<LlmAgent> {
 	}
 
 	private AgentContext ctx(FunctionTool tool) {
-		AgentConfig config = new AgentConfigProvider(FILESYSTEM).get();
+		AgentConf config = new AgentConfigProvider(FILESYSTEM).get();
 		return AgentContext//
 				.builder()//
 				.withConfig(config)//

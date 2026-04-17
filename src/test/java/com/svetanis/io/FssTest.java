@@ -16,6 +16,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteSource;
 import com.svetanis.base.Files;
 import com.svetanis.base.Strings;
+import com.svetanis.io.DefaultFileSystemService;
+import com.svetanis.io.FileSystemService;
 
 public class FssTest {
 

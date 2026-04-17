@@ -1,4 +1,4 @@
-name: root_tutor_agent
+name: RootAgent
 model: gemini-2.5-flash
 description: Learning assistant that provides tutoring in code, math and science.
 instruction: |

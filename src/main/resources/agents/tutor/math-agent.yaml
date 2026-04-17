@@ -1,4 +1,4 @@
-name: math_tutor_agent
+name: MathTutorAgent
 model: gemini-2.5-flash
 description: A helpful  Math Tutor
 instruction: |

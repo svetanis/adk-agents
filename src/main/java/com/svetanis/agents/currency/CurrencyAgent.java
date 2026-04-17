@@ -11,7 +11,7 @@ import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.Annotations.Schema;
 import com.google.adk.tools.FunctionTool;
 import com.google.common.collect.ImmutableList;
-import com.svetanis.agents.AgentConfig;
+import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentConfigProvider;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
@@ -55,7 +55,7 @@ public class CurrencyAgent implements Provider<LlmAgent> {
 		FunctionTool pmf = FunctionTool.create(CurrencyAgent.class, "paymentMethodFee");
 		FunctionTool exr = FunctionTool.create(CurrencyAgent.class, "exchangeRate");
 		AgentTool cat = AgentTool.create(new CalculatorAgent().get());
-		AgentConfig config = new AgentConfigProvider(CURRENCY).get();
+		AgentConf config = new AgentConfigProvider(CURRENCY).get();
 		return AgentContext//
 				.builder()//
 				.withConfig(config)//

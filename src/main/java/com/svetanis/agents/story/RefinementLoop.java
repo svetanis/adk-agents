@@ -1,4 +1,4 @@
-package com.svetanis.agents.blogger;
+package com.svetanis.agents.story;
 
 import static com.google.common.collect.ImmutableMap.copyOf;
 
@@ -14,19 +14,18 @@ import com.svetanis.agents.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class BlogRefinementLoop implements Provider<LoopAgent> {
+public class RefinementLoop implements Provider<LoopAgent> {
 
-  private static final String BCA_KEY = "blogger.critic.agent";
-  private static final String BRA_KEY = "blogger.refiner.agent";
+  private static final String SCA_KEY = "story.critic.agent";
+  private static final String SRA_KEY = "story.refiner.agent";
 
-  private static final String DESC =
-      """
+  private static final String DESC = """
       LoopAgent contains the agents that
       will run repeatedly:
       Critic -> Refiner
       """;
 
-  public BlogRefinementLoop(Map<String, AgentConf> configs) {
+  public RefinementLoop(Map<String, AgentConf> configs) {
     this.configs = copyOf(configs);
   }
 
@@ -34,11 +33,10 @@ public class BlogRefinementLoop implements Provider<LoopAgent> {
 
   @Override
   public LoopAgent get() {
-    LlmAgent critic = new LlmAgentProvider(configs.get(BCA_KEY)).get();
-    AgentContext ctx = AgentContext.build(configs.get(BRA_KEY), ExitLoopTool.INSTANCE);
+    LlmAgent critic = new LlmAgentProvider(configs.get(SCA_KEY)).get();
+    AgentContext ctx = AgentContext.build(configs.get(SRA_KEY), ExitLoopTool.INSTANCE);
     LlmAgent refiner = new LlmAgentProvider(ctx).get();
-    return LoopAgent.builder()
-        .name("BlogRefinementLoop") //
+    return LoopAgent.builder().name("RefinementLoop") //
         .description(DESC) //
         .subAgents(critic, refiner) //
         .maxIterations(2) //

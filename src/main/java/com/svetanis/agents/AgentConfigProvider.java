@@ -7,9 +7,10 @@ import javax.inject.Provider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-public class AgentConfigProvider implements Provider<AgentConfig> {
+@Deprecated
+public class AgentConfigProvider implements Provider<AgentConf> {
 
-	private static final String SRC = "src/main/resources/%s.yaml";
+	private static final String SRC = "src/main/resources/agents/%s.yaml";
 
 	private final String fragment;
 
@@ -18,7 +19,7 @@ public class AgentConfigProvider implements Provider<AgentConfig> {
 	}
 
 	@Override
-	public AgentConfig get() {
+	public AgentConf get() {
 		try {
 			String path = String.format(SRC, fragment);
 			File file = new File(path);
@@ -28,9 +29,9 @@ public class AgentConfigProvider implements Provider<AgentConfig> {
 		}
 	}
 
-	public static AgentConfig readYaml(final File file) throws Exception {
+	public static AgentConf readYaml(final File file) throws Exception {
 		final ObjectMapper mapper = new ObjectMapper(new YAMLFactory()); // jackson databind
-		return mapper.readValue(file, AgentConfig.class);
+		return mapper.readValue(file, AgentConf.class);
 	}
 
 }
