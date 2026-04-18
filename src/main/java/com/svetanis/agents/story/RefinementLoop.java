@@ -32,7 +32,8 @@ public class RefinementLoop implements Provider<LoopAgent> {
   @Override
   public LoopAgent get() {
     LlmAgent critic = new LlmAgentProvider(configs.get(SCA_KEY)).get();
-    AgentContext ctx = AgentContext.build(configs.get(SRA_KEY), ExitLoopTool.INSTANCE);
+    AgentConf config = configs.get(SRA_KEY);
+    AgentContext ctx = AgentContext.build(config, ExitLoopTool.INSTANCE);
     LlmAgent refiner = new LlmAgentProvider(ctx).get();
     return LoopAgent.builder().name("RefinementLoop") //
         .description(DESC) //

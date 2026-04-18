@@ -13,7 +13,7 @@ import jakarta.inject.Provider;
 
 public class SearchAgentToolProvider implements Provider<AgentTool> {
 
-  private static final String GSA_KEY = "search.agent";
+  private static final String GSA_KEY = "buildin.search.agent";
 
   public SearchAgentToolProvider(Map<String, AgentConf> configs) {
     this.configs = copyOf(configs);
