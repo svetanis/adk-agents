@@ -2,6 +2,9 @@ package com.svetanis.agents.a2aclient;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.web.AdkWebServer;
+import com.svetanis.agents.AgentConfigsProvider;
+
+import jakarta.inject.Provider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.a2aclient.CustomerSupportApp
 
@@ -11,7 +14,7 @@ import com.google.adk.web.AdkWebServer;
 public class CustomerSupportApp {
 
   public static void main(String[] agrs) {
-    LlmAgent root = new CustomerSupportAgent().get();
-    AdkWebServer.start(root);
+    Provider<LlmAgent> root = new CustomerSupportAgent(new AgentConfigsProvider());
+    AdkWebServer.start(root.get());
   }
 }
