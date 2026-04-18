@@ -17,8 +17,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentContext;
-import com.svetanis.agents.CodeExecutionToolProvider;
 import com.svetanis.agents.LlmAgentProvider;
+import com.svetanis.agents.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 

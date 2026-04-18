@@ -18,3 +18,4 @@ instruction: |
  simply say: 'APPROVED".
  Output ONLY the feedback, nothing else.
 outputKey: editorial_feedback
+includeContents: NONE

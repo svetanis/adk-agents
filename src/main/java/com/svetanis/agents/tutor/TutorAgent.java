@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.AgentConf;
 import com.svetanis.agents.AgentContext;
 import com.svetanis.agents.LlmAgentProvider;
-import com.svetanis.agents.SearchAgentToolProvider;
+import com.svetanis.agents.tools.SearchAgentToolProvider;
 
 import jakarta.inject.Provider;
 

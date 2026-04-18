@@ -19,3 +19,4 @@ instruction: |
  suggestions for improvement. Be constructive and concise.
  Output ONLY the approval phrase OR the specific feedback.
 outputKey: critique
+includeContents: NONE

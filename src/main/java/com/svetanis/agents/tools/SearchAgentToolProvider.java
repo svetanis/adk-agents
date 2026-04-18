@@ -1,4 +1,4 @@
-package com.svetanis.agents;
+package com.svetanis.agents.tools;
 
 import static com.google.common.collect.ImmutableMap.copyOf;
 
@@ -8,12 +8,15 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.GoogleSearchTool;
 import com.google.common.collect.ImmutableMap;
+import com.svetanis.agents.AgentConf;
+import com.svetanis.agents.AgentContext;
+import com.svetanis.agents.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
 public class SearchAgentToolProvider implements Provider<AgentTool> {
 
-  private static final String GSA_KEY = "buildin.search.agent";
+  private static final String KEY = "tool.search.agent";
 
   public SearchAgentToolProvider(Map<String, AgentConf> configs) {
     this.configs = copyOf(configs);
@@ -23,9 +26,9 @@ public class SearchAgentToolProvider implements Provider<AgentTool> {
 
   @Override
   public AgentTool get() {
-    GoogleSearchTool gst = new GoogleSearchTool();
-    AgentContext ctx = AgentContext.build(configs.get(GSA_KEY), gst);
-    LlmAgent searchAgent = new LlmAgentProvider(ctx).get();
-    return AgentTool.create(searchAgent);
+    GoogleSearchTool tool = new GoogleSearchTool();
+    AgentContext ctx = AgentContext.build(configs.get(KEY), tool);
+    LlmAgent agent = new LlmAgentProvider(ctx).get();
+    return AgentTool.create(agent);
   }
 }

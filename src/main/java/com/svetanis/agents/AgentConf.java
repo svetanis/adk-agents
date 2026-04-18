@@ -7,11 +7,16 @@ import com.google.common.base.Optional;
 
 public final class AgentConf {
 
-  @JsonProperty private String name;
-  @JsonProperty private String model;
-  @JsonProperty private String description;
-  @JsonProperty private String instruction;
+  @JsonProperty
+  private String name;
+  @JsonProperty
+  private String model;
+  @JsonProperty
+  private String description;
+  @JsonProperty
+  private String instruction;
   private Optional<String> outputKey = absent();
+  private Optional<String> includeContents = absent();
 
   public String getName() {
     return name;
@@ -57,4 +62,18 @@ public final class AgentConf {
   public void setOutputKey(Optional<String> outputKey) {
     this.outputKey = outputKey;
   }
+
+  public Optional<String> getIncludeContents() {
+    return includeContents;
+  }
+
+  @JsonProperty
+  public void setIncludeContents(String outputKey) {
+    setOutputKey(Optional.fromNullable(outputKey));
+  }
+
+  public void setIncludeContents(Optional<String> includeContents) {
+    this.includeContents = includeContents;
+  }
+
 }
