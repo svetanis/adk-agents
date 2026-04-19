@@ -30,9 +30,6 @@ public final class AgentConfig {
   }
 
   public static class Builder {
-    
-    public Builder() {}
-
     private String name;
     private String model;
     private String description;
