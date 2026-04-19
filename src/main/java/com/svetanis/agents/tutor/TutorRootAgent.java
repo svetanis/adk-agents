@@ -16,6 +16,7 @@ import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
+import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 import com.svetanis.agents.base.tools.SearchAgentToolProvider;
 
 import jakarta.inject.Provider;
@@ -44,16 +45,17 @@ public class TutorRootAgent implements Provider<LlmAgent> {
   private ImmutableList<BaseTool> tools(Map<String, AgentConfig> configs) {
     List<String> keys = asList(CODE_KEY, MATH_KEY, SCNC_KEY);
     AgentTool sat = new SearchAgentToolProvider(configs).get();
-    return copyOf(transform(keys, k -> agentTool(configs.get(k), sat)));
+    AgentTool cet = new CodeExecutionToolProvider(configs).get();
+    return copyOf(transform(keys, k -> agentTool(configs.get(k), asList(sat, cet))));
   }
 
-  private AgentTool agentTool(AgentConfig config, BaseTool tool) {
-    AgentContext ctx = agentCtx(config, asList(tool));
+  private AgentTool agentTool(AgentConfig config, List<? extends BaseTool> tools) {
+    AgentContext ctx = agentCtx(config, tools);
     LlmAgent agent = new LlmAgentProvider(ctx).get();
     return AgentTool.create(agent);
   }
 
-  private AgentContext agentCtx(AgentConfig config, List<BaseTool> tools) {
+  private AgentContext agentCtx(AgentConfig config, List<? extends BaseTool> tools) {
     return AgentContext.builder() //
         .withConfig(config) //
         .withTools(tools) //
