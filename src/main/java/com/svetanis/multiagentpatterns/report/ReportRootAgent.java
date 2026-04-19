@@ -38,11 +38,11 @@ public class ReportRootAgent implements Provider<LlmAgent> {
 
   private LlmAgent researchAssistant(Map<String, AgentConfig> configs) {
     LlmAgent search = webSearch(configs);
-    LlmAgent summarizer = summarizer(configs);
+    LlmAgent analyst = summarizer(configs);
     AgentConfig config = configs.get(RAA_KEY);
     AgentContext ctx = AgentContext.builder()//
         .withConfig(config)//
-        .withSubAgents(ImmutableList.of(search, summarizer))//
+        .withSubAgents(ImmutableList.of(search, analyst))//
         .build();
     return new LlmAgentProvider(ctx).get();
   }
