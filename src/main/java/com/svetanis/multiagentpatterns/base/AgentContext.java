@@ -14,8 +14,8 @@ import com.google.common.collect.ImmutableList;
 public final class AgentContext {
 
   private final AgentConfig config;
-  private final ImmutableList<BaseTool> tools;
-  private final ImmutableList<BaseAgent> subAgents;
+  private final ImmutableList<? extends BaseTool> tools;
+  private final ImmutableList<? extends BaseAgent> subAgents;
 
   public static AgentContext build(AgentConfig config) {
     return builder().withConfig(config).build();
@@ -38,8 +38,8 @@ public final class AgentContext {
   public static class Builder {
 
     private AgentConfig config;
-    private List<BaseTool> tools = new ArrayList<>();
-    private List<BaseAgent> subAgents = new ArrayList<>();
+    private List<? extends BaseTool> tools = new ArrayList<>();
+    private List<? extends BaseAgent> subAgents = new ArrayList<>();
 
     public final Builder withConfig(AgentConfig config) {
       this.config = config;
@@ -50,12 +50,12 @@ public final class AgentContext {
       return withTools(asList(tools));
     }
 
-    public final Builder withTools(List<BaseTool> tools) {
+    public final Builder withTools(List<? extends BaseTool> tools) {
       this.tools = tools;
       return this;
     }
 
-    public final Builder withSubAgents(List<BaseAgent> subAgents) {
+    public final Builder withSubAgents(List<? extends BaseAgent> subAgents) {
       this.subAgents = subAgents;
       return this;
     }
@@ -74,11 +74,11 @@ public final class AgentContext {
     return config;
   }
 
-  public ImmutableList<BaseTool> getTools() {
+  public ImmutableList<? extends BaseTool> getTools() {
     return tools;
   }
 
-  public ImmutableList<BaseAgent> getSubAgents() {
+  public ImmutableList<? extends BaseAgent> getSubAgents() {
     return subAgents;
   }
 }
