@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.adk.agents.BaseAgent;
+import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.adk.tools.AgentTool;
 import com.google.adk.tools.BaseTool;
-import com.google.adk.tools.ExitLoopTool;
 import com.google.common.collect.ImmutableList;
 import com.svetanis.multiagentpatterns.base.AgentConfig;
 import com.svetanis.multiagentpatterns.base.AgentConfigsProvider;
@@ -38,7 +38,7 @@ public class CodeRootAgent implements Provider<SequentialAgent> {
 
   @Override
   public SequentialAgent get() {
-    List<BaseAgent> subAgents = subAgents(configs.get());
+    List<? extends BaseAgent> subAgents = subAgents(configs.get());
     return SequentialAgent.builder() //
         .name("CodeWorkflow") //
         .description(DESC) //
@@ -46,19 +46,18 @@ public class CodeRootAgent implements Provider<SequentialAgent> {
         .build();
   }
 
-  private ImmutableList<BaseAgent> subAgents(Map<String, AgentConfig> configs) {
+  private ImmutableList<? extends BaseAgent> subAgents(Map<String, AgentConfig> configs) {
     List<String> keys = asList(CWA_KEY, CRA_KEY, CFA_KEY);
     AgentTool tool = new CodeExecutionToolProvider(configs).get();
     return copyOf(transform(keys, k -> subAgent(configs.get(k), tool)));
   }
 
-  private BaseAgent subAgent(AgentConfig config, AgentTool tool) {
-    List<BaseTool> tools = asList(tool, ExitLoopTool.INSTANCE);
-    AgentContext ctx = agentCtx(config, tools);
+  private LlmAgent subAgent(AgentConfig config, AgentTool tool) {
+    AgentContext ctx = agentCtx(config, asList(tool));
     return new LlmAgentProvider(ctx).get();
   }
 
-  private AgentContext agentCtx(AgentConfig config, List<BaseTool> tools) {
+  private AgentContext agentCtx(AgentConfig config, List<? extends BaseTool> tools) {
     return AgentContext.builder() //
         .withConfig(config) //
         .withTools(tools) //
