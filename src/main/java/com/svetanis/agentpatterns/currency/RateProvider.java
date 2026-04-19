@@ -36,7 +36,7 @@ public class RateProvider implements Provider<Optional<Double>> {
     if (fxRate.isPresent()) {
       return fxRate;
     }
-    // fallback
+    // fallback for mock data
     Map<String, Double> rates = rates();
     if (rates.containsKey(symbol)) {
       return of(rates.get(symbol));
