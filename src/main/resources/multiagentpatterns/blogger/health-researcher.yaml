@@ -10,3 +10,4 @@ instruction: |
  on the given topic and present the findings with citations.
  Keep the report concise (50 words).
 outputKey: health_research
+transferToAgent: AggregatorAgent

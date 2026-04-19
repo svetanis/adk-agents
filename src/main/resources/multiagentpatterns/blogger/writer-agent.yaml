@@ -10,3 +10,4 @@ instruction: |
  an engaging and informative tone.
  Output ONLY the blog post text.
 outputKey: current_document
+

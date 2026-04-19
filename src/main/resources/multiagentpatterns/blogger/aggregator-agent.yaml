@@ -25,3 +25,4 @@ instruction: |
  **OUTPUT FORMAT:**
  The final summary should be around 150 words.
 outputKey: summary_outline
+transferToAgent: WriterAgent
