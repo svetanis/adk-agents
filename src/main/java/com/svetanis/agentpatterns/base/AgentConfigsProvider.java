@@ -55,6 +55,7 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
       }
       return copyOf(map);
     } catch (Throwable e) {
+      e.printStackTrace();
       throw new IllegalStateException(e);
     }
   }

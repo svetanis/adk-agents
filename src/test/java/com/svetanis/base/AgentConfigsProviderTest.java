@@ -25,6 +25,7 @@ public class AgentConfigsProviderTest {
       AgentConf config = map.get(key);
       LlmAgent.IncludeContents ic = includeContents(config);
       // System.out.println(key + ":" + config.getOutputKey().or("") + "->" + ic);
+      System.out.println(config);
     }
   }
 
