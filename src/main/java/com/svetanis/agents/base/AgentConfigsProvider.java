@@ -55,7 +55,6 @@ public class AgentConfigsProvider implements Provider<ImmutableMap<String, Agent
   public ImmutableMap<String, AgentConfig> get() {
     try {
       String root = rootPath(subdir);
-      System.out.println("root->" + root);
       Map<String, ByteSource> resources = resources(root);
       Map<String, AgentConfig> map = new HashMap<>();
       for (String key : resources.keySet()) {

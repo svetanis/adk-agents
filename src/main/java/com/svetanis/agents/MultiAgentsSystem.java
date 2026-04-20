@@ -10,9 +10,9 @@ import com.svetanis.agents.story.StoryRootAgent;
 import com.svetanis.agents.traveler.TravelerRootAgent;
 import com.svetanis.agents.tutor.TutorRootAgent;
 
-// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.AllAgentsApp
+// mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.MultiAgentsSystem
 
-public class MultiAgentsApp {
+public class MultiAgentsSystem {
 
   public static void main(String[] agrs) {
     AgentConfigsProvider configs = new AgentConfigsProvider();

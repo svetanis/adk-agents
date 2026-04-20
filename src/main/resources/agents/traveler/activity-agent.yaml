@@ -26,4 +26,4 @@ instruction: |
  - Description (1 sentence)
  - Estimated cost
 outputKey: activity_options
-transferToAgent: ItineraryAgent
+transferToAgent: DiningAgent
