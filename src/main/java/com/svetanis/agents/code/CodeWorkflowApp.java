@@ -13,7 +13,7 @@ public final class CodeWorkflowApp {
   public static void main(String[] agrs) {
     AgentConfigsProvider configs = new AgentConfigsProvider();
     Provider<SequentialAgent> single = new CodeRootAgent(configs);
-    Provider<SequentialAgent> refinement = new CodeRooWithRefinementAgent(configs);
+    Provider<SequentialAgent> refinement = new CodeRootRefinementAgent(configs);
     AdkWebServer.start(single.get(), refinement.get());
   }
 }

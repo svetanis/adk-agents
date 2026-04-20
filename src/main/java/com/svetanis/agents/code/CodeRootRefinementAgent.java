@@ -10,13 +10,13 @@ import com.svetanis.agents.base.LlmAgentProvider;
 
 import jakarta.inject.Provider;
 
-public class CodeRooWithRefinementAgent implements Provider<SequentialAgent> {
+public class CodeRootRefinementAgent implements Provider<SequentialAgent> {
 
   private static final String DESC = "Code workflow pipeline with refinement loop";
 
   private static final String CWA_KEY = "code.write.agent";
 
-  public CodeRooWithRefinementAgent(AgentConfigsProvider configs) {
+  public CodeRootRefinementAgent(AgentConfigsProvider configs) {
     this.configs = checkNotNull(configs, "configs");
   }
 
@@ -27,7 +27,7 @@ public class CodeRooWithRefinementAgent implements Provider<SequentialAgent> {
     LlmAgent writer = new LlmAgentProvider(configs.get().get(CWA_KEY)).get();
     LoopAgent refiner = new RefinementLoop(configs.get()).get();
     return SequentialAgent.builder() //
-        .name("CodeWorkflow") //
+        .name("CodeRefinementSystem") //
         .description(DESC) //
         .subAgents(writer, refiner) //
         .build();
