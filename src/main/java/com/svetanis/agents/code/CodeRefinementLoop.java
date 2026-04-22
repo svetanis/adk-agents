@@ -1,5 +1,6 @@
 package com.svetanis.agents.code;
 
+import static com.google.api.client.util.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableMap.copyOf;
 
 import java.util.Map;
@@ -12,7 +13,6 @@ import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
-import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
@@ -25,17 +25,20 @@ public class CodeRefinementLoop implements Provider<LoopAgent> {
       Improves code performance based on review feedback or signals completion.
       """;
 
-  public CodeRefinementLoop(Map<String, AgentConfig> configs) {
+  public CodeRefinementLoop(AgentTool executionTool, Map<String, AgentConfig> configs) {
+    this.executionTool = checkNotNull(executionTool);
     this.configs = copyOf(configs);
   }
 
+  private final AgentTool executionTool;
   private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public LoopAgent get() {
     LlmAgent review = new LlmAgentProvider(configs.get(CAA_KEY)).get();
     LlmAgent refiner = new LlmAgentProvider(agentCtx()).get();
-    return LoopAgent.builder().name("RefinementLoop") //
+    return LoopAgent.builder()//
+        .name("CodeRefinementLoop") //
         .description(DESC) //
         .subAgents(review, refiner) //
         .maxIterations(3) //
@@ -43,11 +46,10 @@ public class CodeRefinementLoop implements Provider<LoopAgent> {
   }
 
   private AgentContext agentCtx() {
-    AgentTool cet = new CodeExecutionToolProvider(configs).get();
     AgentConfig config = configs.get(CFA_KEY);
     return AgentContext.builder()//
         .withConfig(config)//
-        .withTools(cet, ExitLoopTool.INSTANCE)//
+        .withTools(executionTool, ExitLoopTool.INSTANCE)//
         .build();
 
   }

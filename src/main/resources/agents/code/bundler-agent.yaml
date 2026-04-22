@@ -22,7 +22,7 @@ instruction: |
   code enclosed in triple backticks.
 
   **Python Code:**
-   {generated_code} 
+   {python_code} 
 
  **JAVA Code:**
   {java_code} 

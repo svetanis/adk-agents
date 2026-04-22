@@ -8,10 +8,12 @@ import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.LoopAgent;
 import com.google.adk.agents.ParallelAgent;
 import com.google.adk.agents.SequentialAgent;
+import com.google.adk.tools.AgentTool;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
+import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
 import jakarta.inject.Provider;
 
@@ -31,8 +33,11 @@ public class CodeRootAgent implements Provider<SequentialAgent> {
   @Override
   public SequentialAgent get() {
     Map<String, AgentConfig> configs = provider.get();
-    LlmAgent generator = new LlmAgentProvider(configs.get(CPA_KEY)).get();
-    LoopAgent refiner = new CodeRefinementLoop(configs).get();
+    // shared execution environment for python code generator and refiner
+    AgentTool tool = new CodeExecutionToolProvider(configs).get();
+    AgentContext ctx = AgentContext.build(configs.get(CPA_KEY), tool);
+    LlmAgent generator = new LlmAgentProvider(ctx).get();
+    LoopAgent refiner = new CodeRefinementLoop(tool, configs).get();
     ParallelAgent translators = new CodeTranslationTeam(configs).get();
     LlmAgent bundler = new LlmAgentProvider(AgentContext.build(configs.get(CBA_KEY))).get();
     return SequentialAgent.builder() //

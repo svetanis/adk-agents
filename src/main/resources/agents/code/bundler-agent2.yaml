@@ -22,13 +22,10 @@ instruction: |
   code enclosed in triple backticks.
 
   **Python Code:**
-  {generated_code} 
+  {python_code} 
 
  **JAVA Code:**
   {java_code} 
-
- **CPlus Code:**
-  {cplus_code} 
 
  **GO Code:**
   {go_code} 
@@ -42,5 +39,5 @@ instruction: |
   [Code Snippet]
   ```
   Include languages strictly in the following order:
-  JAVA, C++, GO, PYTHON, TYPESCRIPT
+  JAVA, PYTHON, GO,  TYPESCRIPT
 outputKey: code_report

@@ -28,7 +28,6 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
   private static final String PAR_DESC = "Runs code translation to multiple languages simultaneously";
 
   private static final String CPJ_KEY = "code.python.java";
-  private static final String CPC_KEY = "code.python.cplus";
   private static final String CPG_KEY = "code.python.go";
   private static final String CPT_KEY = "code.python.typescript";
 
@@ -43,8 +42,7 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
 
   @Override
   public ParallelAgent get() {
-    AgentTool cet = new CodeExecutionToolProvider(configs).get();
-    List<SequentialAgent> subAgents = subAgents(cet);
+    List<SequentialAgent> subAgents = subAgents();
     return ParallelAgent.builder() //
         .name("CodeTranslationTeam") //
         .description(PAR_DESC) //
@@ -52,13 +50,15 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
         .build();
   }
 
-  private ImmutableList<SequentialAgent> subAgents(AgentTool tool) {
-    List<String> keys = asList(CPJ_KEY); // , CPG_KEY, CPC_KEY, CPT_KEY);
-    return copyOf(transform(keys, k -> flow(k, tool)));
+  private ImmutableList<SequentialAgent> subAgents() {
+    List<String> keys = asList(CPJ_KEY); // , CPG_KEY, CPT_KEY);
+    return copyOf(transform(keys, k -> translationPipeline(k)));
   }
 
   // single review/refactor sanity check for translated code
-  private SequentialAgent flow(String key, AgentTool tool) {
+  private SequentialAgent translationPipeline(String key) {
+    // each pipeline has its own execution environment
+    AgentTool tool = new CodeExecutionToolProvider(configs).get();
     LlmAgent translate = new LlmAgentProvider(AgentContext.build(configs.get(key), tool)).get();
     LlmAgent review = llmAgent(CRA_KEY, tool);
     LlmAgent refactor = llmAgent(CFA_KEY, tool);

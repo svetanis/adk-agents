@@ -11,8 +11,8 @@ The answer is guaranteed to be unique
 (except for the order that it is in).
 
 Constraints:
-1 <= k <= points.length <= 104
--104 <= xi, yi <= 104
+1 <= k <= points.length <= 10^4
+-10^4 <= xi, yi <= 10^4
 
 RESPONSE:
 

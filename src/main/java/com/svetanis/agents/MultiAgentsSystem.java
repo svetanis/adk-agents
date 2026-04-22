@@ -3,7 +3,6 @@ package com.svetanis.agents;
 import com.google.adk.web.AdkWebServer;
 import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.blogger.BlogRootAgent;
-import com.svetanis.agents.code.LegacyCodeRootAgent;
 import com.svetanis.agents.code.CodeRootAgent;
 import com.svetanis.agents.currency.CurrencyRootAgent;
 import com.svetanis.agents.story.StoryRootAgent;
@@ -18,7 +17,6 @@ public class MultiAgentsSystem {
     AgentConfigsProvider configs = new AgentConfigsProvider();
     AdkWebServer.start(//
         new BlogRootAgent(configs).get(), //
-        new LegacyCodeRootAgent(configs).get(), //
         new CodeRootAgent(configs).get(), //
         new CurrencyRootAgent(configs).get(), //
         new StoryRootAgent(configs).get(), //
