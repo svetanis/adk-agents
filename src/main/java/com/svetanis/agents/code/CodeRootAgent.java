@@ -19,7 +19,7 @@ import jakarta.inject.Provider;
 
 public class CodeRootAgent implements Provider<SequentialAgent> {
 
-  private static final String DESC = "Code Polyglot System with refinement loop";
+  private static final String DESC = "Generates Python code and translates it to multiple languages";
 
   private static final String CPA_KEY = "code.python.agent";
   private static final String CBA_KEY = "code.bundler.agent";
