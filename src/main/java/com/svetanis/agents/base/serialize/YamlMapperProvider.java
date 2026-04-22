@@ -16,6 +16,7 @@ public final class YamlMapperProvider implements Provider<ObjectMapper> {
     YAMLFactory factory = new YAMLFactory().enable(MINIMIZE_QUOTES);
     ObjectMapper mapper = new ObjectMapper(factory);
     mapper.registerModule(new GuavaModule());
+    // mapper.registerModule(new Jdk8Module());
     mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_EMPTY);
     return mapper;
   }

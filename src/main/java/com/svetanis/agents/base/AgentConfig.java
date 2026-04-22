@@ -20,6 +20,7 @@ public final class AgentConfig {
   private final Optional<String> outputKey;
   private final Optional<String> includeContents;
   private final Optional<String> transferToAgent;
+  private final Optional<ContentConfig> contentConfig;
 
   private AgentConfig(Builder builder) {
     this.name = builder.name;
@@ -29,6 +30,7 @@ public final class AgentConfig {
     this.outputKey = builder.outputKey;
     this.includeContents = builder.includeContents;
     this.transferToAgent = builder.transferToAgent;
+    this.contentConfig = builder.contentConfig;
   }
 
   public static class Builder {
@@ -39,6 +41,7 @@ public final class AgentConfig {
     private Optional<String> outputKey = absent();
     private Optional<String> includeContents = absent();
     private Optional<String> transferToAgent = absent();
+    private Optional<ContentConfig> contentConfig = absent();
 
     public final Builder withName(String name) {
       this.name = name;
@@ -72,6 +75,11 @@ public final class AgentConfig {
 
     public final Builder withTransferToAgent(Optional<String> transferToAgent) {
       this.transferToAgent = transferToAgent;
+      return this;
+    }
+
+    public final Builder withContextConfig(Optional<ContentConfig> contentConfig) {
+      this.contentConfig = contentConfig;
       return this;
     }
 
@@ -146,6 +154,19 @@ public final class AgentConfig {
       this.transferToAgent = transferToAgent;
     }
 
+    public Optional<ContentConfig> getContentConfig() {
+      return contentConfig;
+    }
+
+    @JsonProperty
+    public void setContentConfig(ContentConfig contentConfig) {
+      setContentConfig(fromNullable(contentConfig));
+    }
+
+    public void setContentConfig(Optional<ContentConfig> contentConfig) {
+      this.contentConfig = contentConfig;
+    }
+
     public AgentConfig build() {
       return validate(new AgentConfig(this));
     }
@@ -187,6 +208,10 @@ public final class AgentConfig {
     return transferToAgent;
   }
 
+  public Optional<ContentConfig> getContentConfig() {
+    return contentConfig;
+  }
+
   @Override
   public String toString() {
     ToStringHelper helper = toStringHelper(this);
@@ -197,6 +222,7 @@ public final class AgentConfig {
     helper.add("outputKey", outputKey);
     helper.add("includeContents", includeContents);
     helper.add("transferToAgent", transferToAgent);
+    helper.add("contentConfig", contentConfig);
     return helper.toString();
   }
 }

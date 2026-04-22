@@ -45,14 +45,19 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
     }
     builder.tools(ctx.getTools());
     builder.subAgents(ctx.getSubAgents());
-    builder.generateContentConfig(contentConfig());
+    builder.generateContentConfig(contentConfig(config.getContentConfig()));
     return builder.build();
   }
 
-  private GenerateContentConfig contentConfig() {
+  private GenerateContentConfig contentConfig(Optional<ContentConfig> content) {
+    GenerateContentConfig gcc = new DefaultContentConfigProvider().get();
+    if (!content.isPresent()) {
+      return gcc;
+    }
+    ContentConfig cc = content.get();
     return GenerateContentConfig.builder()//
-        .temperature(Double.valueOf(0.1).floatValue())//
-        .maxOutputTokens(2000)//
+        .temperature(cc.getTemperature().or(gcc.temperature().get()))//
+        .maxOutputTokens(cc.getMaxOutputTokens().or(gcc.maxOutputTokens().get()))//
         .build();
   }
 

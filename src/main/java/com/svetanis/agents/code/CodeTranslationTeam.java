@@ -17,6 +17,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentContext;
+import com.svetanis.agents.base.DefaultContentConfigProvider;
 import com.svetanis.agents.base.LlmAgentProvider;
 import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
 
@@ -73,13 +74,14 @@ public class CodeTranslationTeam implements Provider<ParallelAgent> {
     AgentConfig config = configs.get(key);
     String lang = substringAfterLast(key, ".").trim();
     String outputKey = Joiner.on("_").join(lang, "code");
-    LlmAgent.Builder builder = LlmAgent.builder();
-    builder.name(config.getName());
-    builder.description(config.getDescription());
-    builder.model(config.getModel());
-    builder.instruction(config.getInstruction().replace("lang_code", outputKey));
-    builder.outputKey(outputKey);
-    builder.tools(tool);
-    return builder.build();
+    return LlmAgent.builder()//
+        .name(config.getName())//
+        .model(config.getModel())//
+        .description(config.getDescription())//
+        .instruction(config.getInstruction().replace("lang_code", outputKey))//
+        .outputKey(outputKey)//
+        .tools(tool)//
+        .generateContentConfig(new DefaultContentConfigProvider().get())//
+        .build();
   }
 }
