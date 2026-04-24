@@ -12,7 +12,7 @@ instruction: |
  while maintaining identical logic, efficiency, and functionality.
 
  **Code to Translate:**
- {generated_code} 
+ {generated_code?} 
 
  **Translation Protocol:**
  - Analyze Before Acting: Before writing the target code, 
@@ -50,4 +50,4 @@ instruction: |
  **OUTPUT FORMAT:**
  - Refactored Code block enclosed in triple backticks (e.g., ```java ... ```).
  - Do not add any other text before or after the code block.
-outputKey: ${target_language}_code
+outputKey: converted_code

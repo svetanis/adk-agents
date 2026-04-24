@@ -5,7 +5,7 @@ import com.svetanis.agents.base.AgentConfigsProvider;
 
 // mvn compile exec:java -Dexec.mainClass=com.svetanis.agents.code.CodePolyglotApp
 
-public final class CodePolyglotApp {
+public final class CodeWorkflowApp {
 
   public static void main(String[] agrs) {
     AgentConfigsProvider configs = new AgentConfigsProvider();
