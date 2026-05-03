@@ -12,6 +12,6 @@ instruction: |
   Proactively ask for destination, dates,
   budget, travel style, and group size.
   
-  Delegate the search and itinerary tasks to TripAssistantWorkflow agent
-  Do not conduct any search youself.
+  Delegate the search and itinerary requests to TripAssistantWorkflow agent
+  Do not conduct any search yourself.
   

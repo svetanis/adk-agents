@@ -41,6 +41,7 @@ public class DevToolsRootAgent implements Provider<LlmAgent> {
   private ImmutableList<BaseTool> tools(Map<String, AgentConfig> configs) {
     List<BaseTool> list = new ArrayList<>();
     list.add(AgentTool.create(new ReadmeAgent(configs).get()));
+    list.add(AgentTool.create(new CommitAgent(configs).get()));
     list.add(AgentTool.create(new BuilderAgent(configs).get()));
     list.add(AgentTool.create(new FileSystemAgent(configs).get()));
     return copyOf(list);

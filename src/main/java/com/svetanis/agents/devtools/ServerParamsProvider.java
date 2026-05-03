@@ -32,7 +32,7 @@ public class ServerParamsProvider implements Provider<StreamableHttpServerParame
 		Map<String, String> map = new HashMap<>();
 		map.put("Authorization", apiKey);
 		map.put("X-MCP-Toolsets", "all");
-		map.put("X-MCP-Readonly", "true");
+		map.put("X-MCP-Readonly", "false");
 		return copyOf(map);
 	}
 

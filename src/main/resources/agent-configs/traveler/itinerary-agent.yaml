@@ -13,7 +13,7 @@ instruction: |
  {flight_options?} 
 
  **Available Accomodations:**
- {accomodation_options?} 
+ {accommodation_options?} 
 
  **Recommended Activities:**
  {activity_options?} 

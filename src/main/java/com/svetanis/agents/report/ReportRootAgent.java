@@ -1,18 +1,19 @@
 package com.svetanis.agents.report;
 
-import static com.google.api.client.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.ImmutableMap.copyOf;
 
 import java.util.Map;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.tools.AgentTool;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.base.AgentConfig;
-import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
 import com.svetanis.agents.base.tools.SearchAgentToolProvider;
 
-import autovalue.shaded.com.google.common.collect.ImmutableList;
 import jakarta.inject.Provider;
 
 public class ReportRootAgent implements Provider<LlmAgent> {
@@ -22,15 +23,14 @@ public class ReportRootAgent implements Provider<LlmAgent> {
   private static final String RCA_KEY = "report.content.analyst";
   private static final String RAA_KEY = "report.research.coordinator";
 
-  public ReportRootAgent(AgentConfigsProvider provider) {
-    this.provider = checkNotNull(provider, "provider");
+  public ReportRootAgent(Map<String, AgentConfig> configs) {
+    this.configs = copyOf(checkNotNull(configs, "configs"));
   }
 
-  private final AgentConfigsProvider provider;
+  private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public LlmAgent get() {
-    Map<String, AgentConfig> configs = provider.get();
     AgentTool assistant = AgentTool.create(researchAssistant(configs));
     AgentContext ctx = AgentContext.build(configs.get(RRW_KEY), assistant);
     return new LlmAgentProvider(ctx).get();
@@ -40,10 +40,11 @@ public class ReportRootAgent implements Provider<LlmAgent> {
     LlmAgent search = webSearch(configs);
     LlmAgent analyst = summarizer(configs);
     AgentConfig config = configs.get(RAA_KEY);
-    AgentContext ctx = AgentContext.builder()//
-        .withConfig(config)//
-        .withSubAgents(ImmutableList.of(search, analyst))//
-        .build();
+    AgentContext ctx =
+        AgentContext.builder() //
+            .withConfig(config) //
+            .withSubAgents(ImmutableList.of(search, analyst)) //
+            .build();
     return new LlmAgentProvider(ctx).get();
   }
 

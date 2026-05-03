@@ -1,15 +1,14 @@
 package com.svetanis.agents.base;
 
-import static com.google.api.client.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.copyOf;
 import static java.util.Arrays.asList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.tools.BaseTool;
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class AgentContext {
 

@@ -2,15 +2,14 @@ package com.svetanis.agents.base;
 
 import static com.google.adk.agents.LlmAgent.IncludeContents.DEFAULT;
 import static com.google.adk.agents.LlmAgent.IncludeContents.valueOf;
-import static com.google.api.client.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
-import com.google.common.base.Optional;
 import com.google.genai.types.GenerateContentConfig;
-
 import io.reactivex.rxjava3.core.Maybe;
 import jakarta.inject.Provider;
+import java.util.Optional;
 
 public class LlmAgentProvider implements Provider<LlmAgent> {
 
@@ -38,10 +37,11 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
     }
     if (config.getTransferToAgent().isPresent()) {
       String name = config.getTransferToAgent().get();
-      builder.afterAgentCallback(cc -> {
-        cc.eventActions().setTransferToAgent(name);
-        return Maybe.empty();
-      });
+      builder.afterAgentCallback(
+          cc -> {
+            cc.eventActions().setTransferToAgent(name);
+            return Maybe.empty();
+          });
     }
     builder.tools(ctx.getTools());
     builder.subAgents(ctx.getSubAgents());
@@ -55,9 +55,9 @@ public class LlmAgentProvider implements Provider<LlmAgent> {
       return gcc;
     }
     ContentConfig cc = content.get();
-    return GenerateContentConfig.builder()//
-        .temperature(cc.getTemperature().or(gcc.temperature().get()))//
-        .maxOutputTokens(cc.getMaxOutputTokens().or(gcc.maxOutputTokens().get()))//
+    return GenerateContentConfig.builder() //
+        .temperature(cc.getTemperature().orElse(gcc.temperature().get())) //
+        .maxOutputTokens(cc.getMaxOutputTokens().orElse(gcc.maxOutputTokens().get())) //
         .build();
   }
 

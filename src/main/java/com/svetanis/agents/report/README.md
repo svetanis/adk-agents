@@ -1,4 +1,4 @@
-# Report Writer Demo
+# Report Writer
 
 This project demonstrates the **Hierarchical Decomposition** multi-agent pattern (also known as the "Russian Doll" pattern) using the ADK (Agent Development Kit) framework. In this pattern, agents are organized in a nested hierarchy where higher-level agents delegate tasks to lower-level agents, each responsible for specific subtasks.
 
@@ -42,14 +42,15 @@ Final Report Output
 - **TopicResearcherAgent**: Uses web search tools to gather relevant information on the topic.
 - **ContentAnalystAgent**: Analyzes research data and creates concise summaries.
 
-## Running the Demo
+## Running the Project
 
 1. Ensure you have Maven installed.
 2. Navigate to the project directory.
 3. Compile and run:
 
 ```bash
-mvn compile exec:java -Dexec.mainClass=com.google.adk.multiagentpatterns.report.ReportWriterApp
+cd contrib/multi-agent-patterns
+mvn compile exec:java -Dexec.mainClass=com.google.adk.agents.report.ReportWriterApp
 ```
 
 The application starts a web server where you can interact with the agents.
@@ -62,7 +63,7 @@ Try prompts like:
 
 ## Configuration
 
-Agent configurations are defined in YAML files under `src/main/resources/agents/report/`:
+Agent configurations are defined in YAML files under `src/main/resources/agent-configs/report/`:
 - `root-writer.yaml`: Report Writer Agent configuration
 - `research-coordinator.yaml`: Research Coordinator Agent configuration
 - `topic-researcher.yaml`: Topic Researcher Agent configuration
@@ -73,4 +74,3 @@ Agent configurations are defined in YAML files under `src/main/resources/agents/
 - ADK Core
 - ADK Dev (for web UI)
 - Search tools for web research
-</content>

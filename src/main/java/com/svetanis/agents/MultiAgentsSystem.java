@@ -6,6 +6,7 @@ import com.svetanis.agents.blogger.BlogRootAgent;
 import com.svetanis.agents.code.CodeRootAgent;
 import com.svetanis.agents.currency.CurrencyRootAgent;
 import com.svetanis.agents.devtools.DevToolsRootAgent;
+import com.svetanis.agents.report.ReportRootAgent;
 import com.svetanis.agents.story.StoryRootAgent;
 import com.svetanis.agents.traveler.TravelerRootAgent;
 import com.svetanis.agents.tutor.TutorRootAgent;
@@ -18,11 +19,12 @@ public class MultiAgentsSystem {
     AgentConfigsProvider configs = new AgentConfigsProvider();
     AdkWebServer.start(//
         new BlogRootAgent(configs).get(), //
-        new CodeRootAgent(configs).get(), //
+        new CodeRootAgent(configs.get()).get(), //
         new DevToolsRootAgent(configs).get(), //
         new CurrencyRootAgent(configs).get(), //
         new StoryRootAgent(configs).get(), //
-        new TravelerRootAgent(configs).get(), //
+        new ReportRootAgent(configs.get()).get(), //
+        new TravelerRootAgent(configs.get()).get(), //
         new TutorRootAgent(configs).get() //
     );
   }

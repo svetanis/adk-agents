@@ -10,7 +10,7 @@ instruction: |
   
  **GOAL:**
   Take the outputs provided by the
-  code generasion and code conversion workflows 
+  code generation and code conversion workflows 
   and combine them into a single, unified 
   Markdown-formatted output.
 

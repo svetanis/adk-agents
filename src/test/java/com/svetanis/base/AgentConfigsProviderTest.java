@@ -5,12 +5,12 @@ import static com.google.adk.agents.LlmAgent.IncludeContents.valueOf;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.common.base.CharMatcher;
-import com.google.common.base.Optional;
 import com.svetanis.agents.base.AgentConfig;
 import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.base.AppConfig;
@@ -21,20 +21,16 @@ public class AgentConfigsProviderTest {
 
   @Test
   public void test() throws IOException {
-
-    AppConfig config = new AppConfigProvider().get();
-    for (String key : config.getProperties().keySet()) {
-      System.out.println(key + ":" + config.getProperties().get(key));
-    }
-
-    // GenerateContentConfig.builder().temperature(Double.valueOf(0.1).floatValue()).maxOutputTokens(2000).build();
     AgentConfigsProvider provider = new AgentConfigsProvider();
     Map<String, AgentConfig> map = provider.get();
     for (String key : map.keySet()) {
       AgentConfig conf = map.get(key);
-      LlmAgent.IncludeContents ic = includeContents(conf);
-      System.out.println(key + ":" + conf.getOutputKey().or("") + "->" + ic + "--" + conf.getTransferToAgent().or(""));
-      System.out.println(conf);
+//      System.out.println(conf);
+    }
+    // GenerateContentConfig.builder().temperature(Double.valueOf(0.1).floatValue()).maxOutputTokens(2000).build();
+    AppConfig config = new AppConfigProvider().get();
+    for (String key : config.getProperties().keySet()) {
+//      System.out.println(key + ":" + config.getProperties().get(key));
     }
   }
 

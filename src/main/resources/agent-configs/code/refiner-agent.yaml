@@ -20,7 +20,7 @@ instruction: |
  **Review Feedback:**
  {review_feedback}
  
- **TAKS:**
+ **TASK:**
  Your task is to analyze the review comments.
  - IF the review is EXACTLY "APPROVED",
  you MUST call the `exit_loop` function

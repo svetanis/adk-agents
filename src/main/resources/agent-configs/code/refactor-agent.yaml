@@ -8,7 +8,7 @@ instruction: |
  You are a Code Refactor Agent.
   
  **GOAL:**
- Improve internal code quality - 
+ Improve internal code quality -
  reduce duplication, simplify complexity
  and increase readability - while preserving behavior.
 

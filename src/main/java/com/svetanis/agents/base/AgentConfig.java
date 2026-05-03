@@ -1,14 +1,14 @@
 package com.svetanis.agents.base;
 
-import static com.google.api.client.util.Preconditions.checkNotNull;
 import static com.google.common.base.MoreObjects.toStringHelper;
-import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects.ToStringHelper;
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 @JsonDeserialize(builder = AgentConfig.Builder.class)
 public final class AgentConfig {
@@ -38,10 +38,10 @@ public final class AgentConfig {
     private String model;
     private String description;
     private String instruction;
-    private Optional<String> outputKey = absent();
-    private Optional<String> includeContents = absent();
-    private Optional<String> transferToAgent = absent();
-    private Optional<ContentConfig> contentConfig = absent();
+    private Optional<String> outputKey = empty();
+    private Optional<String> includeContents = empty();
+    private Optional<String> transferToAgent = empty();
+    private Optional<ContentConfig> contentConfig = empty();
 
     public final Builder withName(String name) {
       this.name = name;
@@ -121,7 +121,7 @@ public final class AgentConfig {
 
     @JsonProperty
     public void setOutputKey(String outputKey) {
-      setOutputKey(fromNullable(outputKey));
+      setOutputKey(ofNullable(outputKey));
     }
 
     public void setOutputKey(Optional<String> outputKey) {
@@ -133,8 +133,8 @@ public final class AgentConfig {
     }
 
     @JsonProperty
-    public void setIncludeContents(String outputKey) {
-      setIncludeContents(fromNullable(outputKey));
+    public void setIncludeContents(String includeContents) {
+      setIncludeContents(ofNullable(includeContents));
     }
 
     public void setIncludeContents(Optional<String> includeContents) {
@@ -147,7 +147,7 @@ public final class AgentConfig {
 
     @JsonProperty
     public void setTransferToAgent(String transferToAgent) {
-      setTransferToAgent(fromNullable(transferToAgent));
+      setTransferToAgent(ofNullable(transferToAgent));
     }
 
     public void setTransferToAgent(Optional<String> transferToAgent) {
@@ -160,7 +160,7 @@ public final class AgentConfig {
 
     @JsonProperty
     public void setContentConfig(ContentConfig contentConfig) {
-      setContentConfig(fromNullable(contentConfig));
+      setContentConfig(ofNullable(contentConfig));
     }
 
     public void setContentConfig(Optional<ContentConfig> contentConfig) {

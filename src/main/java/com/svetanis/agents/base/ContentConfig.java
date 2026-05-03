@@ -1,14 +1,15 @@
 package com.svetanis.agents.base;
 
-import static com.google.api.client.util.Preconditions.checkArgument;
 import static com.google.common.base.MoreObjects.toStringHelper;
-import static com.google.common.base.Optional.absent;
-import static com.google.common.base.Optional.fromNullable;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
+
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects.ToStringHelper;
-import com.google.common.base.Optional;
 
 @JsonDeserialize(builder = ContentConfig.Builder.class)
 public final class ContentConfig {
@@ -22,8 +23,8 @@ public final class ContentConfig {
   }
 
   public static class Builder {
-    private Optional<Float> temperature = absent();
-    private Optional<Integer> maxOutputTokens = absent();
+    private Optional<Float> temperature = empty();
+    private Optional<Integer> maxOutputTokens = empty();
 
     public final Builder withTemperature(Optional<Float> temperature) {
       this.temperature = temperature;
@@ -44,8 +45,8 @@ public final class ContentConfig {
     }
 
     @JsonProperty
-    public void setOutputKey(float temperature) {
-      setTemperature(fromNullable(temperature));
+    public void setTemperature(float temperature) {
+      setTemperature(ofNullable(temperature));
     }
 
     public void setTemperature(Optional<Float> temperature) {
@@ -53,8 +54,8 @@ public final class ContentConfig {
     }
 
     @JsonProperty
-    public void setIncludeContents(int maxOutputTokens) {
-      setMaxOutputTokens(fromNullable(maxOutputTokens));
+    public void setMaxOutputTokens(int maxOutputTokens) {
+      setMaxOutputTokens(ofNullable(maxOutputTokens));
     }
 
     public void setMaxOutputTokens(Optional<Integer> maxOutputTokens) {
@@ -70,7 +71,8 @@ public final class ContentConfig {
         checkArgument(instance.temperature.get() > 0.0, "positive temperature expected");
       }
       if (instance.maxOutputTokens.isPresent()) {
-        checkArgument(instance.maxOutputTokens.get() > 0, "maxOutput tokens can't be zero or negative");
+        checkArgument(
+            instance.maxOutputTokens.get() > 0, "maxOutput tokens can't be zero or negative");
       }
       return instance;
     }

@@ -1,4 +1,4 @@
-# Multi-Agent Patterns Demo
+# Code Workflow
 
 This project demonstrates various multi-agent patterns using the ADK (Agent Development Kit) framework. It showcases how multiple AI agents can collaborate to perform complex tasks such as code generation, conversion, and refinement.
 
@@ -18,6 +18,7 @@ The multi-agent system operates through a series of coordinated workflows, each 
 ### 1. Request Routing (Coordinator/Dispatcher Pattern)
 - The **CodeRootAgent** analyzes the user's request.
 - Based on the task type (generation, conversion, or both), it dispatches to the appropriate workflow.
+- It leverages the **GitHub Committer Agent** to perform repository actions when requested by the user.
 
 ### 2. Code Generation Workflow (Sequential Pipeline + Iterative Refinement Loop)
 - **Generator Agent**: Produces initial code from problem statements.
@@ -41,7 +42,6 @@ The multi-agent system operates through a series of coordinated workflows, each 
 User Input
     ↓
 CodeRootAgent (Coordinator/Dispatcher)
-    ↓
 {Request Type}
 ├─→ CodeGenerationWorkflow (Sequential Pipeline)
 │   ├─→ Generator Agent
@@ -64,6 +64,8 @@ CodeRootAgent (Coordinator/Dispatcher)
     │   └─→ Refactor Agent
     └─→ Bundler Agent
     ↓
+GitHub Committer Agent
+    ↓
 Code Output
 ```
 
@@ -76,6 +78,7 @@ Code Output
 - **CodeConverterAgent**: Translates code between languages
 - **CodeCriticAgent**: Reviews converted code
 - **CodeBundlerAgent**: Combines outputs into a report
+- **GithubCommitterAgent**: Commits and pushes code to GitHub
 
 ## Running the Project
 
@@ -84,10 +87,15 @@ Code Output
 3. Compile and run:
 
 ```bash
+cd contrib/multi-agent-patterns
 mvn compile exec:java -Dexec.mainClass=com.google.adk.agents.code.CodeWorkflowApp
 ```
 
 The application starts a web server where you can interact with the agents.
+
+## Prerequisites
+
+- **GitHub Token**: To enable the `GithubCommitterAgent` to perform repository actions, you must configure a `COPILOT_GITHUB_TOKEN` environment variable with appropriate `repo` scope permissions.
 
 ## Dependencies
 
@@ -96,10 +104,11 @@ The application starts a web server where you can interact with the agents.
 - Jackson (for YAML/JSON handling)
 - Jakarta Inject
 - Apache Commons Lang
+- GitHub Copilot SDK (`copilot-sdk-java`)
 
 ## Configuration
 
-Agent configurations are defined in YAML files under `src/main/resources/agents/code/`:
+Agent configurations are defined in YAML files under `src/main/resources/agent-configs/code/`:
 - `root-agent.yaml`
 - `generator-agent.yaml`
 - `review-agent.yaml`
@@ -107,3 +116,4 @@ Agent configurations are defined in YAML files under `src/main/resources/agents/
 - `converter-agent.yaml`
 - `critic-agent.yaml`
 - `bundler-agent.yaml`
+- `committer-agent.yaml`

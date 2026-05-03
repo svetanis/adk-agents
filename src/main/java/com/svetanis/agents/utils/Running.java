@@ -17,7 +17,7 @@ import com.google.adk.sessions.Session;
 import com.google.adk.sessions.SessionKey;
 import com.google.genai.types.Content;
 import com.google.genai.types.Part;
-import com.svetanis.agents.plugins.RateLimitPlugin;
+import com.svetanis.agents.zoo.plugins.RateLimitPlugin;
 
 import io.reactivex.rxjava3.core.Flowable;
 
@@ -62,18 +62,20 @@ public class Running {
     RunConfig runConfig = RunConfig.builder().build();
     RateLimitPlugin rlp = rateLimitPlugin(requestsPerMinute);
     InMemoryRunner runner = new InMemoryRunner(root, "trip-advisor", asList(rlp));
-    Session session =
-        runner.sessionService().createSession(runner.appName(), USER_ID).blockingGet();
+    Session session = runner//
+        .sessionService()//
+        .createSession(runner.appName(), USER_ID)//
+        .blockingGet();//
     try (Scanner scanner = new Scanner(System.in, UTF_8)) {
       while (true) {
         System.out.print("\nYou > ");
-        String userInput = scanner.nextLine();
-        if ("quit".equalsIgnoreCase(userInput)) {
+        String in = scanner.nextLine();
+        if ("quit".equalsIgnoreCase(in)) {
           break;
         }
-        Content userMsg = Content.fromParts(Part.fromText(userInput));
-        Flowable<Event> events =
-            runner.runAsync(session.userId(), session.id(), userMsg, runConfig);
+        Content userMsg = Content.fromParts(Part.fromText(in));
+        Flowable<Event> events = runner//
+            .runAsync(session.userId(), session.id(), userMsg, runConfig);
         System.out.print("\nAgent > ");
         events.blockingForEach(
             event -> {

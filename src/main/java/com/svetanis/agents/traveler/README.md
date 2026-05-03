@@ -1,4 +1,4 @@
-# Traveler Demo
+# Trip Advisor
 
 This project demonstrates **Composite Patterns** (mix-and-match of sequential and parallel agents) using the ADK (Agent Development Kit) framework. Composite patterns combine different agent orchestration strategies—such as sequential pipelines and parallel execution—to create flexible, efficient workflows that handle complex tasks by breaking them into interdependent subtasks.
 
@@ -45,13 +45,14 @@ Travel Itinerary Output
 - **DiningAgent**: Recommends restaurants and dining experiences.
 - **ItineraryAgent**: Compiles all search results into a cohesive travel itinerary.
 
-## Running the Demo
+## Running the Project
 
 1. Ensure you have Maven installed.
 2. Navigate to the project directory.
 3. Compile and run:
 
 ```bash
+cd contrib/multi-agent-patterns
 mvn compile exec:java -Dexec.mainClass=com.google.adk.agents.traveler.TravelerApp
 ```
 
@@ -64,7 +65,7 @@ Try prompts like:
 
 ## Configuration
 
-Agent configurations are defined in YAML files under `src/main/resources/agents/traveler/`:
+Agent configurations are defined in YAML files under `src/main/resources/agent-configs/traveler/`:
 - `root-agent.yaml`: Traveler Root Agent configuration
 - `flight-agent.yaml`: Flight search agent
 - `accommodation-agent.yaml`: Accommodation search agent
@@ -77,4 +78,3 @@ Agent configurations are defined in YAML files under `src/main/resources/agents/
 - ADK Core
 - ADK Dev (for web UI)
 - Search and Maps tools for travel research
-</content>

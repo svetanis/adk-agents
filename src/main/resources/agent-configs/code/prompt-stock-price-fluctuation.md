@@ -1,5 +1,5 @@
 ## PROMPT: 2034. Stock Price Fluctuation 
-#### PROMLEM STATEMENT:
+#### PROBLEM STATEMENT:
 You are given a stream of records about a particular stock. 
 Each record contains a timestamp and the corresponding price of the stock at that timestamp.
 
@@ -16,15 +16,15 @@ Finds the minimum price the stock has been based on the current records.
 Implement the StockPrice class:
 
 StockPrice() Initializes the object with no price records.
-void update(int timestamp, int price) Updates the price of the stock at the given timestamp.
-int current() Returns the latest price of the stock.
-int maximum() Returns the maximum price of the stock.
-int minimum() Returns the minimum price of the stock.
+- void update(int timestamp, int price) Updates the price of the stock at the given timestamp.
+- int current() Returns the latest price of the stock.
+- int maximum() Returns the maximum price of the stock.
+- int minimum() Returns the minimum price of the stock.
  
 Constraints:
-1 <= timestamp, price <= 10^9
-At most 105 calls will be made in total to update, current, maximum, and minimum.
-current, maximum, and minimum will be called only after update has been called at least once. 
+- 1 <= timestamp, price <= 10^9
+- At most 105 calls will be made in total to update, current, maximum, and minimum.
+- current, maximum, and minimum will be called only after update has been called at least once. 
 
 Please refactor the following code in Java:
 
@@ -70,7 +70,7 @@ Please refactor the following code in Java:
 # CodeRootAgent
 I have refactored the Java code for the StockPrice class.
 
-Here are the key changes and improvements:
+## Here are the key changes and improvements:
 
 - Helper Methods for Price Frequency Management: Introduced decrementPriceFrequency(int price) and incrementPriceFrequency(int price) to encapsulate the logic for updating price counts. This makes the update method cleaner and more readable.
 

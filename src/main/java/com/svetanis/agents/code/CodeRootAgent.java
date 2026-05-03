@@ -1,15 +1,19 @@
 package com.svetanis.agents.code;
 
-import static com.google.api.client.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.ImmutableMap.copyOf;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.LoopAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.adk.tools.AgentTool;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.svetanis.agents.base.AgentConfig;
-import com.svetanis.agents.base.AgentConfigsProvider;
 import com.svetanis.agents.base.AgentContext;
 import com.svetanis.agents.base.LlmAgentProvider;
 import com.svetanis.agents.base.tools.CodeExecutionToolProvider;
@@ -25,23 +29,29 @@ public class CodeRootAgent implements Provider<LlmAgent> {
   private static final String CFA_KEY = "code.refactor.agent";
   private static final String CBA_KEY = "code.bundler.agent";
 
-  public CodeRootAgent(AgentConfigsProvider provider) {
-    this.provider = checkNotNull(provider, "provider");
+  public CodeRootAgent(Map<String, AgentConfig> configs) {
+    this.configs = copyOf(checkNotNull(configs, "configs"));
   }
 
-  private final AgentConfigsProvider provider;
+  private final ImmutableMap<String, AgentConfig> configs;
 
   @Override
   public LlmAgent get() {
-    Map<String, AgentConfig> configs = provider.get();
-    AgentTool generator = AgentTool.create(generationWorkflow(configs));
-    AgentTool converter = AgentTool.create(conversionWorkflow(configs));
-    AgentTool fullLoop = AgentTool.create(fullLoop(configs));
-    AgentContext ctx = AgentContext.builder()//
-        .withConfig(configs.get(CRA_KEY))//
-        .withTools(generator, converter, fullLoop)//
-        .build();//
+    AgentContext ctx =
+        AgentContext.builder() //
+            .withConfig(configs.get(CRA_KEY)) //
+            .withTools(agentTools()) //
+            .build(); //
     return new LlmAgentProvider(ctx).get();
+  }
+
+  private ImmutableList<AgentTool> agentTools() {
+    List<AgentTool> tools = new ArrayList<>();
+    tools.add(AgentTool.create(generationWorkflow(configs)));
+    tools.add(AgentTool.create(conversionWorkflow(configs)));
+    tools.add(AgentTool.create(fullLoop(configs)));
+    tools.add(AgentTool.create(new CommitAgent(configs).get()));
+    return ImmutableList.copyOf(tools);
   }
 
   private SequentialAgent fullLoop(Map<String, AgentConfig> configs) {
@@ -58,12 +68,12 @@ public class CodeRootAgent implements Provider<LlmAgent> {
   private SequentialAgent conversionWorkflow(Map<String, AgentConfig> configs) {
     AgentTool tool = new CodeExecutionToolProvider(configs).get();
     LlmAgent convert = new LlmAgentProvider(AgentContext.build(configs.get(CTA_KEY), tool)).get();
-    LlmAgent review = new LlmAgentProvider(AgentContext.build(configs.get(CCA_KEY))).get();
+    LlmAgent review = new LlmAgentProvider(AgentContext.build(configs.get(CCA_KEY), tool)).get();
     LlmAgent refactor = new LlmAgentProvider(AgentContext.build(configs.get(CFA_KEY), tool)).get();
-    return SequentialAgent.builder()//
-        .name("CodeConversionWorkflow")//
-        .description("Converts code with review-refactor")//
-        .subAgents(convert, review, refactor)//
+    return SequentialAgent.builder() //
+        .name("CodeConversionWorkflow") //
+        .description("Converts code with review-refactor") //
+        .subAgents(convert, review, refactor) //
         .build();
   }
 
