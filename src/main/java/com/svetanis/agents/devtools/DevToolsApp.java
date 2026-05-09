@@ -9,7 +9,7 @@ public class DevToolsApp {
 
   public static void main(String[] args) throws Exception {
     AgentConfigsProvider configs = new AgentConfigsProvider();
-    CommitAgent agent = new CommitAgent(configs.get());
+    DevToolsRootAgent agent = new DevToolsRootAgent(configs);
     // Run your agent with the ADK Dev UI
     AdkWebServer.start(agent.get());
   }

@@ -37,11 +37,10 @@ public class CodeRootAgent implements Provider<LlmAgent> {
 
   @Override
   public LlmAgent get() {
-    AgentContext ctx =
-        AgentContext.builder() //
-            .withConfig(configs.get(CRA_KEY)) //
-            .withTools(agentTools()) //
-            .build(); //
+    AgentContext ctx = AgentContext.builder() //
+        .withConfig(configs.get(CRA_KEY)) //
+        .withTools(agentTools()) //
+        .build(); //
     return new LlmAgentProvider(ctx).get();
   }
 
@@ -50,7 +49,6 @@ public class CodeRootAgent implements Provider<LlmAgent> {
     tools.add(AgentTool.create(generationWorkflow(configs)));
     tools.add(AgentTool.create(conversionWorkflow(configs)));
     tools.add(AgentTool.create(fullLoop(configs)));
-    tools.add(AgentTool.create(new CommitAgent(configs).get()));
     return ImmutableList.copyOf(tools);
   }
 

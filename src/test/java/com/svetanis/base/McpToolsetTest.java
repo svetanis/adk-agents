@@ -25,13 +25,14 @@ import com.svetanis.agents.devtools.ServerParamsProvider;
 
 public class McpToolsetTest {
 
-  private static final String TOOL_NAME = "create_or_update_file";
+  private static final String UPDATE_TOOL = "create_or_update_file";
+  private static final String PUSH_TOOL = "push_files";
 
   @Test
   public void test() throws IOException {
     ObjectMapper mapper = JsonBaseModel.getMapper();
     StreamableHttpServerParameters params = new ServerParamsProvider().get();
-    try (McpToolset mcp = new McpToolset(params, mapper, asList(TOOL_NAME))) {
+    try (McpToolset mcp = new McpToolset(params, mapper, asList(UPDATE_TOOL, PUSH_TOOL))) {
       List<BaseTool> tools = mcp.getTools(null).toList().blockingGet();
       for (BaseTool tool : tools) {
 //        System.out.println(tool.name());
